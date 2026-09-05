@@ -1,5 +1,7 @@
 # QR Code XP
 
+在线体验：**[https://arrow36.github.io/qr-code-xp/](https://arrow36.github.io/qr-code-xp/)**
+
 一个 Windows XP 风格的二维码实验台。既能快速生成和扫描二维码，也能检查编码分段、纠错等级、Version、Mask 和罚分等底层信息。
 
 ![QR Code XP 界面预览](docs/screenshot.png)

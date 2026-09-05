@@ -38,8 +38,13 @@ jobs:
       - name: Build static site
         run: pnpm build
 
-      - name: Disable Jekyll processing
-        run: touch dist/client/.nojekyll
+      - name: Prepare and validate Pages files
+        run: |
+          # Pages already mounts the artifact at /qr-code-xp/.
+          # vinext writes assetPrefix into the output directory as well.
+          cp -a dist/client/qr-code-xp/_next dist/client/_next
+          touch dist/client/.nojekyll
+          node scripts/check-pages.mjs
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
