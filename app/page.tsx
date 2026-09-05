@@ -442,7 +442,16 @@ export default function Home() {
   const cameraTimer = useRef<number | undefined>(undefined);
 
   useEffect(() => {
+    const viewport = window.visualViewport;
+    const syncViewportHeight = () => {
+      const height = viewport?.height ?? window.innerHeight;
+      document.documentElement.style.setProperty(
+        '--app-viewport-height',
+        `${Math.round(height)}px`,
+      );
+    };
     const resetViewport = () => {
+      syncViewportHeight();
       if (!window.matchMedia('(max-width: 760px)').matches) return;
       const active = document.activeElement;
       if (
@@ -456,14 +465,15 @@ export default function Home() {
       document.body.scrollTop = 0;
     };
     const resetAfterFocus = () => window.setTimeout(resetViewport, 150);
-    const viewport = window.visualViewport;
     window.addEventListener('pageshow', resetViewport);
+    window.addEventListener('resize', syncViewportHeight);
     window.addEventListener('orientationchange', resetAfterFocus);
     document.addEventListener('focusout', resetAfterFocus);
     viewport?.addEventListener('resize', resetViewport);
     resetViewport();
     return () => {
       window.removeEventListener('pageshow', resetViewport);
+      window.removeEventListener('resize', syncViewportHeight);
       window.removeEventListener('orientationchange', resetAfterFocus);
       document.removeEventListener('focusout', resetAfterFocus);
       viewport?.removeEventListener('resize', resetViewport);
@@ -1706,7 +1716,7 @@ export default function Home() {
                         </button>
                       </div>
                     )}
-                    {!scan && (
+                    {!scan && !cameraOn && (
                       <div className="empty-scan">
                         <ScanLine />
                         <h2>等待二维码</h2>
