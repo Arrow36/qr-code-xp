@@ -75,6 +75,11 @@ const FORMAT_TABLE: Array<{ bits: number; ecc: Ecc; mask: number }> = [
   ),
 ];
 const ALPHANUM = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:';
+const PUBLIC_BASE = process.env.NODE_ENV === 'production' ? '/qr-code-xp' : '';
+
+function publicAsset(path: string) {
+  return `${PUBLIC_BASE}${path}`;
+}
 
 function bits(value: number, width: number) {
   return value.toString(2).padStart(width, '0');
@@ -1163,7 +1168,7 @@ export default function Home() {
             <header className="topbar">
               <div className="brand">
                 <div className="brand-mark">
-                  <img src="/qr-code-xp/xp/icon-qr.svg" alt="" aria-hidden="true" />
+                  <img src={publicAsset('/xp/icon-qr.svg')} alt="" aria-hidden="true" />
                 </div>
                 <div>
                   <b>QR Lab</b>
@@ -1204,14 +1209,14 @@ export default function Home() {
                 setActiveTab(value);
                 if (value === 'scan') setScanError('');
               }}
-              className="workspace-tabs"
+              className={`workspace-tabs ${cameraOn ? 'camera-active' : ''}`}
             >
               <div className="xp-toolbar">
                 <TabsList variant="line" className="main-tabs">
                   <TabsTrigger value="generate">
                     <img
                       className="xp-toolbar-icon"
-                      src="/qr-code-xp/xp/icon-generate.svg"
+                      src={publicAsset('/xp/icon-generate.svg')}
                       alt=""
                       aria-hidden="true"
                     />
@@ -1220,7 +1225,7 @@ export default function Home() {
                   <TabsTrigger value="scan">
                     <img
                       className="xp-toolbar-icon"
-                      src="/qr-code-xp/xp/icon-scan.svg"
+                      src={publicAsset('/xp/icon-scan.svg')}
                       alt=""
                       aria-hidden="true"
                     />
@@ -1612,7 +1617,7 @@ export default function Home() {
               <TabsContent value="scan">
                 {experience === 'simple' ? (
                   <section
-                    className={`simple-scan zen-surface ${scan ? 'has-result' : ''}`}
+                    className={`simple-scan zen-surface ${scan ? 'has-result' : ''} ${cameraOn ? 'camera-active' : ''}`}
                     onDragOver={(e) => {
                       e.preventDefault();
                       setDragging(true);
@@ -1634,12 +1639,20 @@ export default function Home() {
                     <div
                       className={`scan-buttons ${dragging ? 'dragging' : ''} ${scan ? 'has-result' : ''}`}
                     >
-                      <UploadButton large={!scan} onFile={analyzeFile} />
-                      <CameraButton large={!scan} />
+                      <UploadButton large={!scan && !cameraOn} onFile={analyzeFile} />
+                      <CameraButton large={!scan && !cameraOn} />
                     </div>
                     {cameraOn && (
                       <div className="camera-box compact">
                         <video ref={attachCamera} autoPlay muted playsInline />
+                        <button
+                          type="button"
+                          className="camera-close-button"
+                          onClick={stopCamera}
+                          aria-label="关闭摄像头"
+                        >
+                          <X aria-hidden="true" />
+                        </button>
                       </div>
                     )}
                     {scanError && (
@@ -1657,7 +1670,7 @@ export default function Home() {
                     <ScanResult />
                   </section>
                 ) : (
-                  <section className="advanced-scan">
+                  <section className={`advanced-scan ${cameraOn ? 'camera-active' : ''}`}>
                     <div className="scan-toolbar">
                       <div>
                         <span className="eyebrow">图像来源</span>
@@ -1671,6 +1684,14 @@ export default function Home() {
                     {cameraOn && (
                       <div className="camera-box compact">
                         <video ref={attachCamera} autoPlay muted playsInline />
+                        <button
+                          type="button"
+                          className="camera-close-button"
+                          onClick={stopCamera}
+                          aria-label="关闭摄像头"
+                        >
+                          <X aria-hidden="true" />
+                        </button>
                       </div>
                     )}
                     {scanError && (
@@ -1731,7 +1752,7 @@ export default function Home() {
           <aside className="start-menu">
             <div className="start-owner">
               <div className="owner-avatar">
-                <img src="/qr-code-xp/momo-avatar.jpg" alt="momo" />
+                <img src={publicAsset('/momo-avatar.jpg')} alt="momo" />
               </div>
               <b>momo</b>
             </div>
@@ -1745,7 +1766,7 @@ export default function Home() {
                   }}
                 >
                   <span className="start-app-icon">
-                    <img src="/qr-code-xp/xp/icon-qr.svg" alt="" aria-hidden="true" />
+                    <img src={publicAsset('/xp/icon-qr.svg')} alt="" aria-hidden="true" />
                   </span>
                   <span>
                     <b>QR Lab</b>
@@ -1764,7 +1785,7 @@ export default function Home() {
                 >
                   <span className="start-app-icon mode-icon">
                     <img
-                      src="/qr-code-xp/xp/icon-generate.svg"
+                      src={publicAsset('/xp/icon-generate.svg')}
                       alt=""
                       aria-hidden="true"
                     />
@@ -1782,7 +1803,7 @@ export default function Home() {
                 >
                   <span className="start-app-icon mode-icon">
                     <img
-                      src="/qr-code-xp/xp/icon-settings.svg"
+                      src={publicAsset('/xp/icon-settings.svg')}
                       alt=""
                       aria-hidden="true"
                     />
@@ -1861,7 +1882,7 @@ export default function Home() {
           }}
         >
           <span className="task-app-icon">
-            <img src="/qr-code-xp/xp/icon-qr.svg" alt="" aria-hidden="true" />
+            <img src={publicAsset('/xp/icon-qr.svg')} alt="" aria-hidden="true" />
           </span>
           <b className="task-app-label">QR Lab</b>
         </button>
