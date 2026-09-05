@@ -443,26 +443,45 @@ export default function Home() {
 
   useEffect(() => {
     const viewport = window.visualViewport;
+    let expandedViewportHeight = Math.max(
+      window.innerHeight,
+      viewport?.height ?? 0,
+    );
+    const isFormControl = (element: Element | null) =>
+      element instanceof HTMLInputElement ||
+      element instanceof HTMLTextAreaElement ||
+      element instanceof HTMLSelectElement;
     const syncViewportHeight = () => {
       const height = viewport?.height ?? window.innerHeight;
+      const formHasFocus = isFormControl(document.activeElement);
+      if (!formHasFocus) {
+        expandedViewportHeight = Math.max(
+          expandedViewportHeight,
+          window.innerHeight,
+          height,
+        );
+      }
+      const keyboardOpen =
+        formHasFocus &&
+        expandedViewportHeight - height >
+          Math.max(120, expandedViewportHeight * 0.18);
       document.documentElement.style.setProperty(
         '--app-viewport-height',
-        `${Math.round(height)}px`,
+        `${Math.round(keyboardOpen ? expandedViewportHeight : height)}px`,
       );
     };
     const resetViewport = () => {
       syncViewportHeight();
       if (!window.matchMedia('(max-width: 760px)').matches) return;
       const active = document.activeElement;
-      if (
-        active instanceof HTMLInputElement ||
-        active instanceof HTMLTextAreaElement ||
-        active instanceof HTMLSelectElement
-      )
-        return;
+      if (isFormControl(active)) return;
       window.scrollTo(0, 0);
       document.documentElement.scrollTop = 0;
       document.body.scrollTop = 0;
+    };
+    const syncAfterFocus = () => {
+      window.setTimeout(syncViewportHeight, 50);
+      window.setTimeout(syncViewportHeight, 350);
     };
     const resetAfterFocus = () => window.setTimeout(resetViewport, 150);
     const preventMultiTouchZoom = (event: TouchEvent) => {
@@ -473,6 +492,7 @@ export default function Home() {
     window.addEventListener('resize', syncViewportHeight);
     window.addEventListener('orientationchange', resetAfterFocus);
     document.addEventListener('focusout', resetAfterFocus);
+    document.addEventListener('focusin', syncAfterFocus);
     document.addEventListener('touchmove', preventMultiTouchZoom, {
       passive: false,
     });
@@ -489,6 +509,7 @@ export default function Home() {
       window.removeEventListener('resize', syncViewportHeight);
       window.removeEventListener('orientationchange', resetAfterFocus);
       document.removeEventListener('focusout', resetAfterFocus);
+      document.removeEventListener('focusin', syncAfterFocus);
       document.removeEventListener('touchmove', preventMultiTouchZoom);
       document.removeEventListener('gesturestart', preventGestureZoom);
       document.removeEventListener('gesturechange', preventGestureZoom);
