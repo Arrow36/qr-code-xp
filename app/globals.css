@@ -600,8 +600,12 @@ svg {
 .camera-box.compact {
   position: relative;
   z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: min(640px, 100%);
-  max-height: 360px;
+  height: min(48vh, 440px);
+  height: min(48dvh, 440px);
   margin: 18px auto 0;
   overflow: hidden;
   border: 6px solid #ece9d8;
@@ -613,8 +617,23 @@ svg {
 .camera-box video {
   display: block;
   width: 100%;
-  max-height: 340px;
-  object-fit: cover;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  background: #101820;
+}
+.regenerate-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
+}
+.regenerate-actions button {
+  flex: 0 0 auto;
+}
+.regenerate-actions span {
+  color: #4d6280;
+  font-size: 12px;
 }
 .scan-result {
   position: relative;
@@ -1440,6 +1459,19 @@ footer i {
   }
 }
 @media (max-width: 760px) {
+  .camera-box.compact {
+    width: min(100%, 430px);
+    height: min(38vh, 340px);
+    height: min(38dvh, 340px);
+  }
+  .regenerate-actions {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .regenerate-actions button {
+    width: 100%;
+  }
   .topbar {
     grid-template-columns: 1fr auto auto;
   }

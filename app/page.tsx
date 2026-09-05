@@ -14,6 +14,7 @@ import {
   LogOut,
   Power,
   QrCode,
+  RefreshCw,
   ScanLine,
   ShieldCheck,
   X,
@@ -779,7 +780,11 @@ export default function Home() {
         return;
       }
       const stream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: { ideal: 'environment' } },
+        video: {
+          facingMode: { ideal: 'environment' },
+          width: { ideal: 1920 },
+          height: { ideal: 1080 },
+        },
         audio: false,
       });
       streamRef.current = stream;
@@ -916,6 +921,17 @@ export default function Home() {
       setScan(undefined);
       setScanHistory([]);
     };
+    const regenerateHighResolution = () => {
+      if (!scan?.decoded.data) return;
+      setText(scan.decoded.data);
+      setMode('auto');
+      setVersion('auto');
+      setMask('auto');
+      setOutputSize('2048');
+      setSelectedModule(undefined);
+      stopCamera();
+      setActiveTab('generate');
+    };
     return (
       <section
         ref={resultRef}
@@ -947,6 +963,16 @@ export default function Home() {
                 <Copy />
                 复制
               </Button>
+            </div>
+            <div className="regenerate-actions">
+              <Button
+                onClick={regenerateHighResolution}
+                disabled={!scan.decoded.data}
+              >
+                <RefreshCw />
+                重新生成高分辨率（2048px）
+              </Button>
+              <span>将扫码内容带入“生成二维码”并使用自动编码参数</span>
             </div>
             <div className="scan-columns">
               <div className="scan-matrix-card">
