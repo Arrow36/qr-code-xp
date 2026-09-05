@@ -465,10 +465,23 @@ export default function Home() {
       document.body.scrollTop = 0;
     };
     const resetAfterFocus = () => window.setTimeout(resetViewport, 150);
+    const preventMultiTouchZoom = (event: TouchEvent) => {
+      if (event.touches.length > 1) event.preventDefault();
+    };
+    const preventGestureZoom = (event: Event) => event.preventDefault();
     window.addEventListener('pageshow', resetViewport);
     window.addEventListener('resize', syncViewportHeight);
     window.addEventListener('orientationchange', resetAfterFocus);
     document.addEventListener('focusout', resetAfterFocus);
+    document.addEventListener('touchmove', preventMultiTouchZoom, {
+      passive: false,
+    });
+    document.addEventListener('gesturestart', preventGestureZoom, {
+      passive: false,
+    });
+    document.addEventListener('gesturechange', preventGestureZoom, {
+      passive: false,
+    });
     viewport?.addEventListener('resize', resetViewport);
     resetViewport();
     return () => {
@@ -476,6 +489,9 @@ export default function Home() {
       window.removeEventListener('resize', syncViewportHeight);
       window.removeEventListener('orientationchange', resetAfterFocus);
       document.removeEventListener('focusout', resetAfterFocus);
+      document.removeEventListener('touchmove', preventMultiTouchZoom);
+      document.removeEventListener('gesturestart', preventGestureZoom);
+      document.removeEventListener('gesturechange', preventGestureZoom);
       viewport?.removeEventListener('resize', resetViewport);
     };
   }, []);
@@ -702,7 +718,6 @@ export default function Home() {
       });
     }
     if (!decoded) {
-      setScanError('没有识别到二维码。请尝试更清晰、对比度更高的图片。');
       return false;
     }
     const sampled = sampleMatrix(image, decoded);

@@ -4038,11 +4038,27 @@ button:disabled:hover {
 
 /* Track iOS/Android's actually visible viewport when browser chrome is open. */
 @media (max-width: 768px), (pointer: coarse) {
+  html,
+  body,
+  .app-shell {
+    touch-action: pan-x pan-y;
+  }
+
   .app-shell {
     height: var(--app-viewport-height, 100svh);
   }
 
   .desktop-area {
     height: calc(var(--app-viewport-height, 100svh) - 32px);
+  }
+
+  .app-shell.advanced .control-grid select {
+    height: 36px;
+    min-height: 36px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 10px;
+    padding-right: 36px;
+    line-height: normal;
   }
 }
