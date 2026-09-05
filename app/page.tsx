@@ -678,7 +678,7 @@ export default function Home() {
   }, []);
   const analyzeFile = useCallback(
     async (file: File) => {
-      if (!file.type.startsWith('image/')) {
+      if (file.type && !file.type.startsWith('image/')) {
         setScanError('请选择图片文件。');
         return;
       }
@@ -773,15 +773,16 @@ export default function Home() {
   }, []);
   const startCamera = useCallback(async () => {
     try {
+      setScanError('');
+      if (!navigator.mediaDevices?.getUserMedia) {
+        setScanError('当前浏览器不支持摄像头，请用 Safari 或 Chrome 打开本站，或选择二维码图片。');
+        return;
+      }
       const stream = await navigator.mediaDevices.getUserMedia({
         video: { facingMode: { ideal: 'environment' } },
         audio: false,
       });
       streamRef.current = stream;
-      if (videoRef.current) {
-        videoRef.current.srcObject = stream;
-        await videoRef.current.play();
-      }
       setCameraOn(true);
       cameraTimer.current = window.setInterval(() => {
         const video = videoRef.current;
@@ -802,6 +803,15 @@ export default function Home() {
       stopCamera();
     }
   }, [analyzeImageData, stopCamera]);
+  const attachCamera = useCallback((video: HTMLVideoElement | null) => {
+    videoRef.current = video;
+    if (!video || !streamRef.current) return;
+    video.srcObject = streamRef.current;
+    void video.play().catch(() => {
+      setScanError('摄像头视频无法播放，请检查浏览器权限后重试。');
+      stopCamera();
+    });
+  }, [stopCamera]);
   useEffect(() => () => stopCamera(), [stopCamera]);
   useEffect(() => {
     if (scan && experience === 'advanced')
@@ -1574,7 +1584,7 @@ export default function Home() {
                     </div>
                     {cameraOn && (
                       <div className="camera-box compact">
-                        <video ref={videoRef} muted playsInline />
+                        <video ref={attachCamera} autoPlay muted playsInline />
                       </div>
                     )}
                     {scanError && (
@@ -1605,7 +1615,7 @@ export default function Home() {
                     </div>
                     {cameraOn && (
                       <div className="camera-box compact">
-                        <video ref={videoRef} muted playsInline />
+                        <video ref={attachCamera} autoPlay muted playsInline />
                       </div>
                     )}
                     {scanError && (

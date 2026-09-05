@@ -586,13 +586,16 @@ svg {
 }
 .upload-button {
   cursor: pointer;
+  position: relative;
 }
 .upload-button input {
   position: absolute;
-  width: 1px;
-  height: 1px;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   opacity: 0;
-  pointer-events: none;
+  cursor: pointer;
+  z-index: 1;
 }
 .camera-box.compact {
   position: relative;
@@ -3851,4 +3854,13 @@ button:disabled:hover {
 }
 .xp-session-card p {
   margin-bottom: 20px;
+}
+
+/* Keep mobile browsers from zooming the viewport on form focus. */
+@media (max-width: 768px), (pointer: coarse) {
+  .app-shell textarea,
+  .app-shell input,
+  .app-shell select {
+    font-size: 16px !important;
+  }
 }
