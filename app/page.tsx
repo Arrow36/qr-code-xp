@@ -437,6 +437,35 @@ export default function Home() {
   const cameraTimer = useRef<number | undefined>(undefined);
 
   useEffect(() => {
+    const resetViewport = () => {
+      if (!window.matchMedia('(max-width: 760px)').matches) return;
+      const active = document.activeElement;
+      if (
+        active instanceof HTMLInputElement ||
+        active instanceof HTMLTextAreaElement ||
+        active instanceof HTMLSelectElement
+      )
+        return;
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    };
+    const resetAfterFocus = () => window.setTimeout(resetViewport, 150);
+    const viewport = window.visualViewport;
+    window.addEventListener('pageshow', resetViewport);
+    window.addEventListener('orientationchange', resetAfterFocus);
+    document.addEventListener('focusout', resetAfterFocus);
+    viewport?.addEventListener('resize', resetViewport);
+    resetViewport();
+    return () => {
+      window.removeEventListener('pageshow', resetViewport);
+      window.removeEventListener('orientationchange', resetAfterFocus);
+      document.removeEventListener('focusout', resetAfterFocus);
+      viewport?.removeEventListener('resize', resetViewport);
+    };
+  }, []);
+
+  useEffect(() => {
     const context = (document as Document & { modelContext?: WebMcpContext })
       .modelContext;
     if (!context?.registerTool) return;

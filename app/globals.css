@@ -3890,6 +3890,22 @@ button:disabled:hover {
 
 /* Keep mobile browsers from zooming the viewport on form focus. */
 @media (max-width: 768px), (pointer: coarse) {
+  html,
+  body {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    overscroll-behavior: none;
+  }
+  .app-shell {
+    width: 100%;
+    height: 100%;
+  }
+  .desktop-area {
+    height: calc(100% - 32px);
+  }
   .app-shell textarea,
   .app-shell input,
   .app-shell select {
