@@ -2567,7 +2567,7 @@ body {
       rgba(104, 166, 246, 0.35) 52%,
       rgba(18, 73, 177, 0.2)
     ),
-    url('/xp/titlebar.svg') repeat-x center / auto 100%;
+    url('/qr-code-xp/xp/titlebar.svg') repeat-x center / auto 100%;
   border-bottom-color: #f6a52b;
 }
 .start-items {
@@ -2701,7 +2701,7 @@ body {
 
 /* User-supplied Bliss wallpaper and Start-menu mode controls. */
 .app-shell {
-  background: #3a83d4 url('/winxp.jpg') center center / cover no-repeat fixed;
+  background: #3a83d4 url('/qr-code-xp/winxp.jpg') center center / cover no-repeat fixed;
 }
 .app-shell::before {
   display: none;
@@ -3135,7 +3135,7 @@ button:disabled:hover {
 .result-header,
 .start-owner {
   background-color: #1558cf;
-  background-image: url('/xp/titlebar.svg');
+  background-image: url('/qr-code-xp/xp/titlebar.svg');
   background-repeat: repeat-x;
   background-size: auto 100%;
 }
@@ -3156,7 +3156,7 @@ button:disabled:hover {
   min-width: 0;
   margin: 0;
   border: 7px solid transparent;
-  border-image: url('/xp/group-frame.svg') 7 fill stretch;
+  border-image: url('/qr-code-xp/xp/group-frame.svg') 7 fill stretch;
   border-radius: 0;
   background: none;
   box-shadow: none;
@@ -3187,7 +3187,7 @@ button:disabled:hover {
 .zen-button,
 .reset-ui {
   border: 5px solid transparent !important;
-  border-image: url('/xp/button-normal.svg') 5 fill stretch !important;
+  border-image: url('/qr-code-xp/xp/button-normal.svg') 5 fill stretch !important;
   border-radius: 0 !important;
   background: none !important;
   box-shadow: none !important;
@@ -3197,7 +3197,7 @@ button:disabled:hover {
 .zen-button:hover,
 .reset-ui:hover {
   color: #17365e !important;
-  border-image-source: url('/xp/button-hot.svg') !important;
+  border-image-source: url('/qr-code-xp/xp/button-hot.svg') !important;
   background: none !important;
   box-shadow: none !important;
 }
@@ -3205,7 +3205,7 @@ button:disabled:hover {
 .action-row button:active,
 .zen-button:active,
 .reset-ui:active {
-  border-image-source: url('/xp/button-pressed.svg') !important;
+  border-image-source: url('/qr-code-xp/xp/button-pressed.svg') !important;
   background: none !important;
   box-shadow: none !important;
 }
@@ -3321,7 +3321,7 @@ button:disabled:hover {
 .app-shell.advanced
   .workspace-tabs
   > [data-slot='tabs-content']::-webkit-scrollbar-thumb {
-  background: #7ca9e7 url('/xp/scroll-thumb.svg') center / 100% 100% no-repeat;
+  background: #7ca9e7 url('/qr-code-xp/xp/scroll-thumb.svg') center / 100% 100% no-repeat;
   border: 0;
   border-radius: 0;
   box-shadow: none;
@@ -3406,7 +3406,7 @@ button:disabled:hover {
   max-width: 680px;
   padding: 12px;
   border: 7px solid transparent;
-  border-image: url('/xp/group-frame.svg') 7 fill stretch;
+  border-image: url('/qr-code-xp/xp/group-frame.svg') 7 fill stretch;
   background: none;
   box-shadow: none;
 }
@@ -3440,7 +3440,7 @@ button:disabled:hover {
   padding: 0 8px;
   color: #17365e !important;
   border: 5px solid transparent !important;
-  border-image: url('/xp/button-normal.svg') 5 fill stretch !important;
+  border-image: url('/qr-code-xp/xp/button-normal.svg') 5 fill stretch !important;
   border-radius: 0 !important;
   background: none !important;
   box-shadow: none !important;
@@ -3448,7 +3448,7 @@ button:disabled:hover {
 }
 .simple-scan .result-header button:hover,
 .simple-scan .decoded-text button:hover {
-  border-image-source: url('/xp/button-hot.svg') !important;
+  border-image-source: url('/qr-code-xp/xp/button-hot.svg') !important;
 }
 .simple-scan .decoded-text {
   display: grid;
@@ -3717,7 +3717,7 @@ button:disabled:hover {
   background: #1d5ba5;
 }
 .control-icon {
-  background: url('/xp/icon-settings.svg') center / contain no-repeat;
+  background: url('/qr-code-xp/xp/icon-settings.svg') center / contain no-repeat;
   image-rendering: pixelated;
 }
 .help-icon {

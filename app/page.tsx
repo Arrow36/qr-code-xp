@@ -1098,7 +1098,7 @@ export default function Home() {
             <header className="topbar">
               <div className="brand">
                 <div className="brand-mark">
-                  <img src="/xp/icon-qr.svg" alt="" aria-hidden="true" />
+                  <img src="/qr-code-xp/xp/icon-qr.svg" alt="" aria-hidden="true" />
                 </div>
                 <div>
                   <b>QR Lab</b>
@@ -1146,7 +1146,7 @@ export default function Home() {
                   <TabsTrigger value="generate">
                     <img
                       className="xp-toolbar-icon"
-                      src="/xp/icon-generate.svg"
+                      src="/qr-code-xp/xp/icon-generate.svg"
                       alt=""
                       aria-hidden="true"
                     />
@@ -1155,7 +1155,7 @@ export default function Home() {
                   <TabsTrigger value="scan">
                     <img
                       className="xp-toolbar-icon"
-                      src="/xp/icon-scan.svg"
+                      src="/qr-code-xp/xp/icon-scan.svg"
                       alt=""
                       aria-hidden="true"
                     />
@@ -1666,7 +1666,7 @@ export default function Home() {
           <aside className="start-menu">
             <div className="start-owner">
               <div className="owner-avatar">
-                <img src="/momo-avatar.jpg" alt="momo" />
+                <img src="/qr-code-xp/momo-avatar.jpg" alt="momo" />
               </div>
               <b>momo</b>
             </div>
@@ -1680,7 +1680,7 @@ export default function Home() {
                   }}
                 >
                   <span className="start-app-icon">
-                    <img src="/xp/icon-qr.svg" alt="" aria-hidden="true" />
+                    <img src="/qr-code-xp/xp/icon-qr.svg" alt="" aria-hidden="true" />
                   </span>
                   <span>
                     <b>QR Lab</b>
@@ -1699,7 +1699,7 @@ export default function Home() {
                 >
                   <span className="start-app-icon mode-icon">
                     <img
-                      src="/xp/icon-generate.svg"
+                      src="/qr-code-xp/xp/icon-generate.svg"
                       alt=""
                       aria-hidden="true"
                     />
@@ -1717,7 +1717,7 @@ export default function Home() {
                 >
                   <span className="start-app-icon mode-icon">
                     <img
-                      src="/xp/icon-settings.svg"
+                      src="/qr-code-xp/xp/icon-settings.svg"
                       alt=""
                       aria-hidden="true"
                     />
@@ -1796,7 +1796,7 @@ export default function Home() {
           }}
         >
           <span className="task-app-icon">
-            <img src="/xp/icon-qr.svg" alt="" aria-hidden="true" />
+            <img src="/qr-code-xp/xp/icon-qr.svg" alt="" aria-hidden="true" />
           </span>
           <b className="task-app-label">QR Lab</b>
         </button>

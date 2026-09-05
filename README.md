@@ -41,6 +41,10 @@ pnpm dev
 
 根据终端提示打开本地地址即可使用。
 
+## 在线体验
+
+[打开 GitHub Pages](https://arrow36.github.io/qr-code-xp/)
+
 ## 常用命令
 
 ```bash
